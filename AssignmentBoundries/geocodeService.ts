@@ -6,6 +6,11 @@ interface GeocodeResponse {
     lon: string;
     display_name: string;
 }
+const defaultGeocodeResponse:GeocodeResponse={
+    lat:"0",
+    lon:"0",
+    display_name:"unknown"
+};
 
 export async function getGeolocation(place: string): Promise<GeocodeResponse | null> {
     try {
@@ -16,16 +21,16 @@ export async function getGeolocation(place: string): Promise<GeocodeResponse | n
             },
         });
 
-        const [firstResult] = response.data;
+        const [GeocodeResult] = response.data;
 
-        if (!firstResult) {
+        if (!GeocodeResult) {
             console.warn(`No results found for "${place}".`);
-            return null;
+            return defaultGeocodeResponse;
         }
 
-        return firstResult;
+        return GeocodeResult;
     } catch (error: any) {
         console.error(`Error fetching coordinates: ${error.message}`);
-        return null;
+        return defaultGeocodeResponse;
     }
 }
