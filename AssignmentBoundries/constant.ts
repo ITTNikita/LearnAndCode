@@ -1,4 +1,0 @@
-export const constant = {
-    API_URL: 'https://geocode.maps.co/search',
-    API_KEY: '6818479c40587812237412bfm467c14',
-};
