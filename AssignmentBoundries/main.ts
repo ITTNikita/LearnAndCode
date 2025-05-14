@@ -1,9 +1,9 @@
-
+// app.ts
 import { UserInputService } from './services/UserInputService';
 import { LocationPrinter } from './services/LocationPrinter';
 import { GeocodeService } from './services/GeocodeService';
 
-export class GeoCodeLocation {
+class GeoCodeLocation {
     private userInputService: UserInputService;
     private geocodeService: GeocodeService;
     private locationPrinter: LocationPrinter;
@@ -14,15 +14,13 @@ export class GeoCodeLocation {
         this.locationPrinter = new LocationPrinter();
     }
 
-    public async run(): Promise<void> {
+    public async main(): Promise<void> {
         try {
             const place = this.userInputService.getUserInput();
-
             if (!place) {
                 console.log('Place name cannot be empty.');
                 return;
             }
-
             const location = await this.geocodeService.getGeolocation(place);
             this.locationPrinter.print(location);
         } catch (error: any) {
@@ -33,4 +31,4 @@ export class GeoCodeLocation {
 }
 
 const geolocationService = new GeoCodeLocation();
-geolocationService.run();
+geolocationService.main();
