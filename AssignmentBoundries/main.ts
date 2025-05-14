@@ -1,25 +1,36 @@
-import readlineSync from 'readline-sync';
-import { getGeolocation } from './geocodeService';
 
-function userInput(): string {
-    return readlineSync.question('Enter a place name: ');
+import { UserInputService } from './services/UserInputService';
+import { LocationPrinter } from './services/LocationPrinter';
+import { GeocodeService } from './services/GeocodeService';
+
+export class GeoCodeLocation {
+    private userInputService: UserInputService;
+    private geocodeService: GeocodeService;
+    private locationPrinter: LocationPrinter;
+
+    constructor() {
+        this.userInputService = new UserInputService();
+        this.geocodeService = new GeocodeService();
+        this.locationPrinter = new LocationPrinter();
+    }
+
+    public async run(): Promise<void> {
+        try {
+            const place = this.userInputService.getUserInput();
+
+            if (!place) {
+                console.log('Place name cannot be empty.');
+                return;
+            }
+
+            const location = await this.geocodeService.getGeolocation(place);
+            this.locationPrinter.print(location);
+        } catch (error: any) {
+            console.error('An unexpected error occurred while running the application.');
+            console.error(`Error: ${error.message}`);
+        }
+    }
 }
 
-async function main(): Promise<void> {
-    const place = userInput().trim();
-
-    if (!place) {
-        console.log('Place name cannot be empty.');
-        return;
-    }
-
-    const location = await getGeolocation(place);
-
-    if (location) {
-        console.log(`\nPlace: ${location.display_name}`);
-        console.log(`Latitude: ${location.lat}`);
-        console.log(`Longitude: ${location.lon}`);
-    }
-}   
-
-main();
+const geolocationService = new GeoCodeLocation();
+geolocationService.run();

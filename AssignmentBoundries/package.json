@@ -1,6 +1,6 @@
 {
   "name": "geo-app",
-  "version": "1.0.0",  
+  "version": "1.0.0",
   "scripts": {
     "start": "ts-node main.ts"
   },
@@ -9,6 +9,9 @@
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2"
   }
