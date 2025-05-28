@@ -1,22 +1,19 @@
-export function getDivisorCount(number: number): number {
+export function getDivisorCount(number: number): number| undefined {
   try {
-    if (!Number.isInteger(number) || number < 1) {
-      throw new Error("Input must be a positive integer.");
-    }
     let divisorCount = 0;
-    for (let i = 1; i * i <= number; i++) {
-      if (number % i === 0) {
-        divisorCount += (i * i === number) ? 1 : 2;
+    for (let index = 1; index * index <= number; index++) {
+      if (number % index === 0) {
+        divisorCount += (index * index === number) ? 1 : 2;
       }
     }
     return divisorCount;
   } catch (error) {
     console.error(`Error in getDivisorCount(${number}):`, error);
-    return -1; 
+    return undefined; 
   }
 }
 
-export function getMatchingDivisorPairs(limit: number): number {
+export function getMatchingDivisorPairs(limit: number): number| undefined {
   try {
     if (!Number.isInteger(limit) || limit < 2) {
       throw new Error("Input must be an integer greater than or equal to 2.");
@@ -33,7 +30,7 @@ export function getMatchingDivisorPairs(limit: number): number {
     return matchCount;
   } catch (error) {
     console.error(`Error in getMatchingDivisorPairs(${limit}):`, error);
-    return -1;
+    return undefined;
   }
 }
 

@@ -1,7 +1,7 @@
 
 import { getDivisorCount, getMatchingDivisorPairs } from "../src/divisor";
 
-describe("countDivisors", () => {
+describe("getDivisorCount", () => {
   test("returns correct number of divisors", () => {
     expect(getDivisorCount(4)).toBe(3); 
     expect(getDivisorCount(5)).toBe(2); 
@@ -13,7 +13,7 @@ describe("countDivisors", () => {
   });
 });
 
-describe("countMatchingDivisors", () => {
+describe("getMatchingDivisorPairs", () => {
   test("matches sample input where n = 4", () => {
     expect(getMatchingDivisorPairs(4)).toBe(1); 
   });
