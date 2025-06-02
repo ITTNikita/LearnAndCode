@@ -34,4 +34,4 @@ export function getMatchingDivisorPairs(limit: number): number| undefined {
   }
 }
 
-console.log(getDivisorCount(18));
+console.log(getMatchingDivisorPairs(1));
