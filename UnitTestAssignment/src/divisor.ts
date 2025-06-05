@@ -1,37 +1,54 @@
-export function getDivisorCount(number: number): number| undefined {
-  try {
-    let divisorCount = 0;
-    for (let index = 1; index * index <= number; index++) {
-      if (number % index === 0) {
-        divisorCount += (index * index === number) ? 1 : 2;
-      }
+import * as readline from 'readline';
+
+export function getPositiveDivisorCount(num: number): number {
+  let divisorCount = 0;
+  for (let index = 1; index * index <= num; index++) {
+    if (num % index === 0) {
+      divisorCount += (index * index === num) ? 1 : 2;
     }
-    return divisorCount;
-  } catch (error) {
-    console.error(`Error in getDivisorCount(${number}):`, error);
-    return undefined; 
   }
+  return divisorCount;
 }
 
-export function getMatchingDivisorPairs(limit: number): number| undefined {
-  try {
-    if (!Number.isInteger(limit) || limit < 2) {
-      throw new Error("Input must be an integer greater than or equal to 2.");
+export function countConsecutiveEqualDivisorPairs(limit: number): number {
+  let matchingPairCount = 0;
+  for (let startNumber = 2; startNumber < limit; startNumber++) {
+    if (getPositiveDivisorCount(startNumber) === getPositiveDivisorCount(startNumber + 1)) {
+      matchingPairCount++;
     }
-    let matchCount = 0;
-    for (let current = 1; current < limit; current++) {
-      const currentDivisorCount = getDivisorCount(current);
-      const nextDivisorCount = getDivisorCount(current + 1);
-      if (currentDivisorCount === -1 || nextDivisorCount === -1) continue;
-      if (currentDivisorCount === nextDivisorCount) {
-        matchCount++;
-      }
-    }
-    return matchCount;
-  } catch (error) {
-    console.error(`Error in getMatchingDivisorPairs(${limit}):`, error);
-    return undefined;
   }
+  return matchingPairCount;
 }
 
-console.log(getMatchingDivisorPairs(1));
+const readUserInput = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let testCaseCount = 0;
+const testInputs: number[] = [];
+
+readUserInput.on('line', (line) => {
+  const value = parseInt(line.trim());
+
+  if (isNaN(value)) {
+    console.error('Invalid input, please enter an integer.');
+    return;
+  }
+
+  if (testCaseCount === 0) {
+    testCaseCount = value;
+  } else {
+    testInputs.push(value);
+  }
+
+  if (testInputs.length === testCaseCount) {
+    readUserInput.close();
+  }
+});
+
+readUserInput.on('close', () => {
+  testInputs.forEach((limit) => {
+    console.log(countConsecutiveEqualDivisorPairs(limit));
+  });
+});
