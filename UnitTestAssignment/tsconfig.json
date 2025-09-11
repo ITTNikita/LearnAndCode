@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "target": "es5", // Or es2015, etc.
+      "module": "commonjs",
+      "sourceMap": true,
+      "outDir": "dist",
+      "rootDir": "src",
+      "esModuleInterop": true,
+      "strict": true,
+      "skipLibCheck": true
+    },
+    "include": ["src/**/*"]
+  }
